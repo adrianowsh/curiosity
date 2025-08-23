@@ -4,6 +4,9 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Curiosity.Application\Curiosity.Application.csproj" />
   </ItemGroup>
 </Project>

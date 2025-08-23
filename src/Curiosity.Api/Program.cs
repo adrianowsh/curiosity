@@ -1,5 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using Curiosity.Api.OpenApi;
+using Curiosity.Application;
 using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddApplication();
 
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
