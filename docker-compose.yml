@@ -1,0 +1,47 @@
+services:
+  curiosity.api:
+    container_name: Curiosity.Api
+    image: ${DOCKER_REGISTRY-}curiosityapi
+    build:
+      context: .
+      dockerfile: src/Curiosity.Api/Dockerfile
+  curiosity-db:
+    image: postgres:latest
+    container_name: Curiosity.Db
+    environment:
+      - POSTGRES_DB=curiosity
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  curiosity-idp:
+     image: quay.io/keycloak/keycloak:latest
+     container_name: Curiosity.Identity
+     command: start-dev --import-realm
+     environment:
+       - KEYCLOAK_ADMIN=admin
+       - KEYCLOAK_ADMIN_PASSWORD=admin
+     volumes:
+       - ./.containers/identity:/opt/keycloak/data
+       - ./.files:/opt/keycloak/data/import/realm.json
+     ports:
+       - 18080:8080
+
+  curiosity-seq:
+    image: datalust/seq:latest
+    container_name: Curiosity.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
+  
+  curiosity-redis:
+    image: redis:latest
+    container_name: Curiosity.Redis
+    restart: always
+    ports:
+      - '6379:6379'
