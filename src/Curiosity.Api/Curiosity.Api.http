@@ -1,0 +1,6 @@
+@Curiosity.Api_HostAddress = http://localhost:5078
+
+GET {{Curiosity.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
