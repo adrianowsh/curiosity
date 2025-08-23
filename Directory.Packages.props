@@ -1,0 +1,9 @@
+﻿<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.15.0.120848"/>
+    <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
+  </ItemGroup>
+</Project>
