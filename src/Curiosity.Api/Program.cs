@@ -53,6 +53,10 @@ app.UseSerilogRequestLogging();
 
 app.UseCustomExceptionHandler();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.MapControllers();
 
 await app.RunAsync();
