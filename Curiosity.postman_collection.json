@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "bb70af63-0bbc-43f8-a2eb-49c5e1dba77b",
+		"name": "Curiosity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3894711"
+	},
+	"item": [
+		{
+			"name": "identity",
+			"item": [
+				{
+					"name": "Access Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "curiosity-auth-client",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid email",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user2@curioisity.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:18080/realms/curiosity/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"realms",
+								"curiosity",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "bookify-auth-client",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "yJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2N2Y5NThmOS1kNDZiLTQxMGYtOWExOS1kYmQ3YTExZDNkNTEifQ.eyJleHAiOjE3NDgxMDUyMTIsImlhdCI6MTc0ODEwMzQxMiwianRpIjoiZjA0NmRhNmYtNzVhNi00NzA2LTkwOGMtNGUxZWJiOGUwYWU3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDoxODA4MC9yZWFsbXMvYm9va2lmeSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MTgwODAvcmVhbG1zL2Jvb2tpZnkiLCJzdWIiOiIwOTFkMjVlMy1lNjMyLTRlYTMtYTgzNC02NzA2ZWZhZjM3NzciLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYm9va2lmeS1hdXRoLWNsaWVudCIsInNpZCI6IjE4ZDU3YWIzLTdjNjItNDgwZS04NTU1LTVhYjAzMTZjY2ZjYiIsInNjb3BlIjoib3BlbmlkIGVtYWlsIHdlYi1vcmlnaW5zIGFjciByb2xlcyBwcm9maWxlIGJhc2ljIn0.7fkD90pNUOYc8lAatRqaoeyt8N8a8eYH5Ta7Me0ffPfcbylQJGSOBi9aliNho11FzIkO59pIkMtSrTPZ1HYZjA",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid email",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "test@test.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "asdf",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:18080/realms/bookify/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"realms",
+								"bookify",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3eTVpZHdkSTFqa0cza1R4Ykhfakk5cmpUMzNaaXJoMElBLUJtaTZRaERZIn0.eyJleHAiOjE3NDgwNTU5ODQsImlhdCI6MTc0ODA1NTM4NCwianRpIjoidHJydGNjOmUzOGViZmIyLTlkMjAtNGQ5MS05Nzg1LWI0YTZhMTgxYjQ2ZiIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MTgwODAvcmVhbG1zL2Jvb2tpZnkiLCJhdWQiOlsicmVhbG0tbWFuYWdlbWVudCIsImFjY291bnQiXSwic3ViIjoiMzUzODk5NGYtYjA5NS00NWY2LThmOTgtYTk1ZGQ2MWI4NGMxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYm9va2lmeS1hZG1pbi1jbGllbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6MTgwODAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWJvb2tpZnkiXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZWFsbS1tYW5hZ2VtZW50Ijp7InJvbGVzIjpbIm1hbmFnZS11c2VycyJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImNsaWVudElkIjoiYm9va2lmeS1hZG1pbi1jbGllbnQiLCJjbGllbnRIb3N0IjoiMTcyLjE5LjAuMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWJvb2tpZnktYWRtaW4tY2xpZW50IiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4xOS4wLjEifQ.EBt6BIIDe53E4FkRRDBh-PD2bWhSKzWKC4hXVmsrEcxUWdjbr0xEsY0I5IUrZ5rRlJoz6W_lU78CzBxZsmzVGq7reGTUOQm3lpNkL5LyDVTfGMSSL6gUW17mreTy_bAIov6mzP9N0VclgS9bxblN0T97H8NQx7NdudFv6jT8PiZYe0_JHOAxM-QomdTDA-lJgWeCZ3WI9AsUOjnEdtdR63H-7OX-zszpQfZYXNZ1qwQxrlj9Xt6tRMDKz9fFBWSm4y7bv4A3cvGndj_OgYO-Ufv37hrNPPlC7auSEtG98_Pg2rDgeirBhr-G2DXEsBVkXG-KNZQ3mt0ikY16DeWkZQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"João\",\r\n  \"lastName\": \"Silva\",\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"username\": \"joao.silva@example.com\",\r\n  \"enabled\": true,\r\n  \"emailVerified\": true,\r\n  \"createdTimestamp\": 1716508800,\r\n  \"attributes\": {\r\n    \"customAttribute\": [\"value1\", \"value2\"]\r\n  },\r\n  \"requiredActions\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:18080/admin/realms/bookify/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"admin",
+								"realms",
+								"bookify",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access Token Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "curiosity-admin-client",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "UZDmbNxWmV4TlpaCRcju6pMRsyuV3er1",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid email",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:18080/realms/curiosity/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"realms",
+								"curiosity",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Well-known",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:18080/realms/mybookify/.well-known/openid-configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"realms",
+								"mybookify",
+								".well-known",
+								"openid-configuration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Log In User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user1@curioisity.com\",\r\n  \"password\": \"asdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/v1/users/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@curioisity.com\",\r\n    \"name\": \"User1\",\r\n    \"password\": \"asdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/v1/user/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ6U0hGdC1LOUhTOWw1TF9mMm9BUTR3ckVESlpyZEJvdU13Zlp1Y0JHVE9nIn0.eyJleHAiOjE3NTYwMTA5MDQsImlhdCI6MTc1NjAwNzMwNCwianRpIjoib25ydHJvOjZmMzE5MTQyLWIzMGYtNWZkMS02NzQzLTNlNGI2NjE3ZmUxNiIsImlzcyI6Imh0dHA6Ly9jdXJpb3NpdHktaWRwOjgwODAvcmVhbG1zL2N1cmlvc2l0eSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJjOTdmYjhiZC1jMWRiLTRkOTEtODRmYy1jNzIzMzFjNWU0ODAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjdXJpb3NpdHktYXV0aC1jbGllbnQiLCJzaWQiOiI0OWQ4OTdiOC0zMmMxLTRiYmItYWMyMC1iYjA0NDc5ZjZkYTUiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtY3VyaW9zaXR5Iiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlVzZXIyIFVzZXIyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlcjJAY3VyaW9pc2l0eS5jb20iLCJnaXZlbl9uYW1lIjoiVXNlcjIiLCJmYW1pbHlfbmFtZSI6IlVzZXIyIiwiZW1haWwiOiJ1c2VyMkBjdXJpb2lzaXR5LmNvbSJ9.D0f3PuSbRL2ZOybJg7lAIdk1m0xgpLWVjZ7RM8sCkNNGY5Sob_CrH5J_UywUz6OImgF-M0sXbttTsSNGjDmlzN6ublCi9Fyf5ZWaayNwu4obR1xjmMnhMrNuTXHlnWjrnDFCE-rncqworrhJPomaU6vqh4aV5tgdIM9ftswGkkgiCAF1VAoyPVxJLKieQFkDKgCYH2FgwP2E3KyTyzsD0D3n4JtPs6tJ-Z-QaHXeAWVlZHu2xxt000trJSjj1JXlY0vi-7SMwryns3ySmAulKj-2af6JkmaR0wKjUs16qFB9Yr803o5UmhqJKojPK_VI0wnRZX3iw40wKe4M1_9QsQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/v1/users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3eTVpZHdkSTFqa0cza1R4Ykhfakk5cmpUMzNaaXJoMElBLUJtaTZRaERZIn0.eyJleHAiOjE3NDgzOTA5MDAsImlhdCI6MTc0ODM4NzMwMCwianRpIjoib25ydHJvOmRkN2YxNzRiLTkxYWItNDYyOS04MGQwLWFjMDZlMjk4Nzc4MCIsImlzcyI6Imh0dHA6Ly9ib29raWZ5LWlkcDo4MDgwL3JlYWxtcy9ib29raWZ5IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6Ijk3N2UwNzcxLTZmYzMtNDkxOS05MjM3LTA4MjY3OWU3N2M1ZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJvb2tpZnktYXV0aC1jbGllbnQiLCJzaWQiOiI2MWQ0ZjkwOS0wM2FjLTRiYjQtYTNhMC02ZGYwZDcwZmY0OWIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWJvb2tpZnkiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJBZHJpYW5vIE1vdGEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZHJpYW5vLm1vdGFAYm9va2lmeS5jb20iLCJnaXZlbl9uYW1lIjoiQWRyaWFubyIsImZhbWlseV9uYW1lIjoiTW90YSIsImVtYWlsIjoiYWRyaWFuby5tb3RhQGJvb2tpZnkuY29tIn0.XLUK2-_haYXp925FhJCm9c-y_t7mQ8PIkU9O9NCflyxMEDoMTgzeGn9JuNTZlrSPUSsVqkQfYmhaXBjfbssU4y_gKfODzNq2XDzBDEWPxGmbaJKFvt5b6DPqpAj4wPbocmXC20Oa3ATaC-awJMUX8-7_1DcoCL20yZMpUQKJujqReSqoEU395J1lZaM70n_k7XRDOJYEmFCvCNSwu65qQtktnFS_0HLXosfap8zbMcNqSfyLj3Cv4uVUPmLNy0AwxOPF13jhZk7Q-RY6B1gal4MJs0bpsP_ma4gouKvsAI85RknAC-irUnTn-WrEBF_S_2mhL0GopwM-sP7r9QCMKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/health",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/bookings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
