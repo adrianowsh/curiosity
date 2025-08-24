@@ -237,6 +237,109 @@ Este projeto está licenciado sob os termos da licença MIT
 
 Este projeto foi desenvolvido com foco em escalabilidade, organização, segurança e performance. Abaixo estão algumas decisões arquiteturais e técnicas adotadas:
 
+✅ O que são esses arquivos?
+Arquivo	Função principal
+Directory.Build.props	Define propriedades globais para todos os projetos abaixo do diretório
+Directory.Packages.props	Centraliza a gestão de versões de pacotes NuGet
+📌 Benefícios do Directory.Build.props
+1. ✅ Padronização de propriedades de build
+
+Define configurações comuns para todos os .csproj da solution.
+
+Exemplo: TargetFramework, LangVersion, Nullable, etc.
+
+```xml
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>
+```
+
+👉 Todos os projetos filhos herdam essas configurações automaticamente.
+
+2. 🧹 Menos repetição de código
+
+Elimina redundância entre múltiplos arquivos .csproj.
+
+Antes:
+```xml
+<!-- Em vários csproj -->
+<LangVersion>latest</LangVersion>
+<Nullable>enable</Nullable>
+```
+
+Depois:
+
+<!-- Apenas uma vez em Directory.Build.props -->
+
+3. 🔧 Customização de builds
+
+Pode adicionar ItemGroup, Import, Condition, etc.
+
+Permite incluir analyzers, atributos globais, ou configurações por ambiente.
+
+4. 📂 Aplicação em hierarquia
+
+O MSBuild aplica Directory.Build.props de cima para baixo (em cascata), permitindo configuração centralizada mesmo em soluções grandes com subpastas.
+
+📌 Benefícios do Directory.Packages.props
+
+Este arquivo é parte do Central Package Management introduzido oficialmente no .NET 6+.
+
+1. ✅ Centralização de versões de pacotes NuGet
+
+Define versões de pacotes em um único lugar, fora dos .csproj.
+
+```xml
+<Project>
+  <ItemGroup>
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="Serilog" Version="2.12.0" />
+  </ItemGroup>
+</Project>
+```
+
+Nos .csproj, você só faz:
+```xml
+<PackageReference Include="Newtonsoft.Json" />
+```
+
+Sem versão!
+
+2. 🛡️ Evita conflitos de versão
+
+Garante que todos os projetos usem a mesma versão de cada pacote.
+
+Evita bugs difíceis causados por múltiplas versões do mesmo pacote na solution.
+
+3. 📦 Facilita upgrades
+
+Atualizar pacotes agora é só trocar um número de versão no Directory.Packages.props.
+
+Excelente para automação com bots, CI/CD, ou manutenção manual.
+
+4. 📈 Performance de build
+
+Reduz o número de pacotes restaurados desnecessariamente.
+
+Restauração de pacotes é mais previsível e eficiente.
+
+✅ Conclusão: Benefícios combinados
+Recurso	Benefícios principais
+Directory.Build.props	✔️ Padronização de build
+✔️ Menos redundância
+✔️ Facilidade de manutenção
+Directory.Packages.props	✔️ Centralização de dependências
+✔️ Evita conflitos
+✔️ Facilidade de upgrade
+✔️ Melhora performance de restauração
+
+Esses dois arquivos trazem manutenibilidade, clareza, padronização e eficiência — especialmente em soluções com múltiplos projetos.
+
+
 🎯 Por que sealed melhora a performance?
 
 🔹 1. Otimização do runtime (JIT – Just-In-Time Compiler)
