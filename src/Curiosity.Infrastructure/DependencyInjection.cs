@@ -27,6 +27,8 @@ public static class DependencyInjection
 
         AddAuthentication(services, configuration);
 
+        AddCors(services);
+
         return services;
     }
 
@@ -49,6 +51,13 @@ public static class DependencyInjection
         SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
     }
 
+    private static void AddCors(IServiceCollection services)
+    {
+        services.AddCors(options => options.AddPolicy("AllowAngularOrigin",builder => builder
+            .WithOrigins("http://localhost:4200")  
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+    }
     private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
     {
         services

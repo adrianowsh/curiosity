@@ -3,6 +3,8 @@ using Curiosity.Api.Extensions;
 using Curiosity.Api.OpenApi;
 using Curiosity.Application;
 using Curiosity.Infrastructure;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -47,6 +49,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowAngularOrigin");
+
 app.UseRequestContextLogging();
 
 app.UseSerilogRequestLogging();
@@ -58,6 +62,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+});
 
 await app.RunAsync();
 
