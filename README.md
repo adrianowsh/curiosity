@@ -237,7 +237,185 @@ Este projeto está licenciado sob os termos da licença MIT
 
 Este projeto foi desenvolvido com foco em escalabilidade, organização, segurança e performance. Abaixo estão algumas decisões arquiteturais e técnicas adotadas:
 
-🔄 Uso de CQRS com MediatR
+🎯 Por que sealed melhora a performance?
+
+🔹 1. Otimização do runtime (JIT – Just-In-Time Compiler)
+
+Quando o compilador JIT encontra um método em uma classe não selada, ele precisa permitir a sobrescrição (override) daquele método, mesmo que o método não esteja sendo sobrescrito ainda. Isso impede otimizações agressivas.
+
+Com uma classe sealed, o JIT sabe com certeza que:
+
+Nenhuma classe herdará dela.
+
+Nenhum método poderá ser sobrescrito.
+
+➡️ Isso permite ao JIT:
+
+Evitar verificação de métodos virtuais em tempo de execução.
+
+Fazer devirtualização: chamada de método direto em vez de indireta via virtual table (vtable).
+
+Inline mais eficiente: o método pode ser copiado diretamente para o local da chamada.
+
+🔹 2. Redução de indireção
+
+Chamadas a métodos virtual ou override envolvem uma busca na vtable, o que:
+
+Exige mais instruções de CPU.
+
+Prejudica o uso do branch prediction e do cache da CPU.
+
+Com classes sealed, se o método não for virtual, a chamada é direta → mais rápida.
+
+📈 Exemplo de melhoria de performance
+
+Imagine duas classes:
+
+```csharp
+public class Pessoa
+{
+    public virtual string GetNome() => "Pessoa";
+}
+
+public sealed class Cliente
+{
+    public string GetNome() => "Cliente";
+}
+```
+
+```
+Pessoa.GetNome() é uma chamada virtual → mais lenta.
+
+Cliente.GetNome() é chamada direta → mais rápida, porque a classe é sealed.
+```
+
+⚠️ Quando usar sealed?
+
+Use sealed quando:
+
+A classe não precisa ser herdada.
+
+Você quer evitar que a classe seja estendida por terceiros.
+
+Você quer garantir mais performance (especialmente em bibliotecas, jogos, sistemas de alto desempenho).
+
+Evite selar prematuramente se a classe for parte de um framework/extensível, onde a herança é esperada.
+
+✅ Conclusão
+
+O uso de sealed em classes C#:
+
+Benefício	Explicação
+🔒 Garante que a classe não seja herdada	Mais previsibilidade
+🚀 Permite otimizações pelo JIT	Chamada de método mais rápida
+🧠 Facilita análise do código pelo compilador	Inline e devirtualização mais eficientes
+📉 Reduz sobrecarga de runtime	Menos indireção e lookup
+
+🔄 Uso de structs nos Value Objects
+
+✅ O que são Value Objects?
+
+No DDD (Domain-Driven Design), Value Objects são objetos que:
+
+Representam um valor (e não uma identidade).
+
+São imutáveis.
+
+Dois Value Objects com os mesmos valores são considerados iguais.
+
+Ex: CPF, Email, Endereço, Nome, Moeda, DataDeNascimento.
+
+✅ Por que usar struct em vez de class para Value Objects?
+🔹 1. struct são value types, não reference types:
+
+struct é alocada na stack.
+
+class é alocada na heap, gerenciada pelo Garbage Collector.
+
+🔹 2. Stack vs Heap:
+Stack	Heap
+Rápido acesso e desalocação	Mais lenta, precisa do GC
+Escopo de vida previsível	Vida gerenciada automaticamente
+Sem coleta de lixo	Usa Garbage Collector
+🔹 3. Passagem por valor:
+
+struct é passada por valor → cópia é feita na stack.
+
+class é passada por referência → ponteiro para heap.
+
+✅ Vantagens de usar struct para Value Objects
+
+Sem sobrecarga do Garbage Collector:
+
+Como são alocados na stack, não entram no ciclo de GC.
+
+Reduz pressão sobre a heap → melhora performance.
+
+Menor overhead de memória:
+
+Stack é mais leve e rápida.
+
+Ideal para objetos pequenos e imutáveis (como Value Objects).
+
+Segurança e Imutabilidade:
+
+struct é naturalmente imutável se você evitar setters públicos.
+
+Evita efeitos colaterais de compartilhamento de referência.
+
+⚠️ Cuidados ao usar struct como Value Object
+
+Tamanho: struct deve ser pequena (ideal: até 16 bytes).
+
+Imutabilidade: torne todos os campos readonly.
+
+Evitar boxing: cuidado ao usar com interfaces ou tipos genéricos que causam boxing, o que pode gerar alocação na heap.
+
+✅ Exemplo prático
+
+```csharp
+public readonly struct Cpf
+{
+    public string Valor { get; }
+
+    public Cpf(string valor)
+    {
+        if (!EhValido(valor))
+            throw new ArgumentException("CPF inválido.");
+
+        Valor = valor;
+    }
+
+    public override string ToString() => Valor;
+
+    private static bool EhValido(string valor)
+    {
+        // Validação de CPF
+        return true;
+    }
+}
+```
+
+✅ Imutável
+
+✅ Pequeno (apenas uma string)
+
+✅ Não alocado na heap se usado como parâmetro ou parte de outro struct
+
+✅ Não gera carga para o Garbage Collector
+
+✅ Conclusão
+
+Usar structs para Value Objects é uma estratégia de otimização:
+
+🔸 Elimina alocações desnecessárias na heap.
+
+🔸 Reduz uso do Garbage Collector.
+
+🔸 Melhora a performance geral da aplicação.
+
+Mas deve ser usado com cuidado, especialmente em relação ao tamanho e ao boxing. Ideal para tipos pequenos, imutáveis e amplamente usados no código (como parâmetros de métodos, propriedades, etc.).
+
 
 A separação entre comandos (Command) e consultas (Query) promove uma divisão clara entre escrita e leitura, facilitando a escalabilidade e a manutenção.
 
