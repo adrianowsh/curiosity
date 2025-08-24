@@ -51,9 +51,9 @@ public sealed class User : Entity<UserId>
     /// <param name="email"></param>
     /// <param name="status"></param>
     /// <returns></returns>
-    public static User Create(Name firstName, Email email, Status status)
+    public static User Create(Name name, Email email, Status status)
     {
-        var user = new User(UserId.New(), firstName, email, status);
+        var user = new User(UserId.New(), name, email, status);
 
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
 
