@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Curiosity.Api.Controllers.Users;
 
-[Authorize]
+
 [ApiController]
 [ApiVersion(ApiVersions.V1)]
 [Route("api/v{version:apiVersion}/users")]
@@ -42,7 +42,7 @@ public sealed class UsersController(ISender sender) : ControllerBase
             return BadRequest(result.Error);
         }
 
-        return Ok(result.Value);
+        return Ok(new { data = result.Value });
     }
 
     [AllowAnonymous]
