@@ -228,9 +228,7 @@ CI/CD com GitHub Actions
 
 Deploy com Docker Swarm ou Kubernetes
 
-📝 Licença
-
-Este projeto está licenciado sob os termos da licença MIT
+Outbox Pattern para envio de eventos/mensagens.
 
 
 📌 Decisões Técnicas
@@ -329,12 +327,24 @@ Restauração de pacotes é mais previsível e eficiente.
 
 ✅ Conclusão: Benefícios combinados
 Recurso	Benefícios principais
-Directory.Build.props	✔️ Padronização de build
+
+Directory.Build.props	
+
+✔️ Padronização de build
+
 ✔️ Menos redundância
+
 ✔️ Facilidade de manutenção
-Directory.Packages.props	✔️ Centralização de dependências
+
+
+Directory.Packages.props	
+
+✔️ Centralização de dependências
+
 ✔️ Evita conflitos
+
 ✔️ Facilidade de upgrade
+
 ✔️ Melhora performance de restauração
 
 Esses dois arquivos trazem manutenibilidade, clareza, padronização e eficiência — especialmente em soluções com múltiplos projetos.
@@ -436,10 +446,13 @@ struct é alocada na stack.
 class é alocada na heap, gerenciada pelo Garbage Collector.
 
 🔹 2. Stack vs Heap:
+
 Stack	Heap
+
 Rápido acesso e desalocação	Mais lenta, precisa do GC
 Escopo de vida previsível	Vida gerenciada automaticamente
 Sem coleta de lixo	Usa Garbage Collector
+
 🔹 3. Passagem por valor:
 
 struct é passada por valor → cópia é feita na stack.
@@ -600,8 +613,8 @@ Essas decisões foram tomadas com base em boas práticas de arquitetura de softw
 
 
 
-
 🔐 Como registrar um usuário para autenticação
+
 
 Antes de utilizar a aplicação, é necessário registrar um usuário válido para autenticação. Para isso, siga os passos abaixo:
 
@@ -645,4 +658,7 @@ password: "asdf"
 ```
 
 Esse usuário será necessário para se autenticar na aplicação futuramente.
-.
+
+📝 Licença
+
+Este projeto está licenciado sob os termos da licença MIT
