@@ -220,22 +220,29 @@ Testes funcionais
 
 Testes da camada de aplicação com Mocking
 
-Suporte a filas (RabbitMQ, Kafka)
+Suporte a filas (RabbitMQ, Kafka, AZ servicebus)
 
 Monitoramento com Prometheus e Grafana
 
-CI/CD com GitHub Actions
+CI/CD com GitHub Actions (Somente CI foi incluído)
 
 Deploy com Docker Swarm ou Kubernetes
 
 Outbox Pattern para envio de eventos/mensagens.
 
+Rate limit por usuário.
 
+Nginx como proxy reverso. (Cloudflare em produção)
+
+\
+\
 📌 Decisões Técnicas
+
 
 Este projeto foi desenvolvido com foco em escalabilidade, organização, segurança e performance. Abaixo estão algumas decisões arquiteturais e técnicas adotadas:
 
-✅ O que são esses arquivos?
+\
+ ✅ Directory.Build.props e Directory.Packages.props 
 Arquivo	Função principal
 Directory.Build.props	Define propriedades globais para todos os projetos abaixo do diretório
 Directory.Packages.props	Centraliza a gestão de versões de pacotes NuGet
@@ -350,6 +357,8 @@ Directory.Packages.props
 Esses dois arquivos trazem manutenibilidade, clareza, padronização e eficiência — especialmente em soluções com múltiplos projetos.
 
 
+\
+\
 🎯 Por que sealed melhora a performance?
 
 🔹 1. Otimização do runtime (JIT – Just-In-Time Compiler)
@@ -532,10 +541,13 @@ Usar structs para Value Objects é uma estratégia de otimização:
 
 Mas deve ser usado com cuidado, especialmente em relação ao tamanho e ao boxing. Ideal para tipos pequenos, imutáveis e amplamente usados no código (como parâmetros de métodos, propriedades, etc.).
 
+\
+🔄 CQRS com MediatR
 
 A separação entre comandos (Command) e consultas (Query) promove uma divisão clara entre escrita e leitura, facilitando a escalabilidade e a manutenção.
 
 O MediatR fornece um ponto único de orquestração para requisições, removendo acoplamento direto entre controladores e regras de negócio.
+\
 
 🔁 Pipeline Behaviors com MediatR
 
@@ -549,7 +561,8 @@ Esses comportamentos permitem aplicar boas práticas de cross-cutting sem poluir
 
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-
+\
+\
 🔐 Uso de internal para restrição de acesso
 
 Classes que não precisam ser expostas publicamente (ex: repositórios, implementações internas) são marcadas como internal para:
@@ -611,8 +624,7 @@ A visualização é feita acessando: http://localhost:8081
 
 Essas decisões foram tomadas com base em boas práticas de arquitetura de software e nas necessidades reais do projeto. Novas decisões poderão ser documentadas conforme o projeto evolui.
 
-
-
+\
 🔐 Como registrar um usuário para autenticação
 
 
@@ -657,7 +669,8 @@ user:  "user1@curioisity.com"
 password: "asdf"
 ```
 
-Esse usuário será necessário para se autenticar na aplicação futuramente.
+Esse usuário será necessário para se autenticar na aplicação futuramente ao executar o frontend em angular.
+[Frontend](https://github.com/adrianowsh/my-app)
 
 📝 Licença
 
