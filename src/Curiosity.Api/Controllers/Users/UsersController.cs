@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Curiosity.Api.Controllers.Users;
 
-
+[Authorize]
 [ApiController]
 [ApiVersion(ApiVersions.V1)]
 [Route("api/v{version:apiVersion}/users")]
